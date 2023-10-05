@@ -18,7 +18,7 @@ This code snippet executes the following tasks:
 
 ```json
 {
-    "Name": "MySharedMailbox",
+    "MailboxIdentity": "MySharedMailbox",
     "UsersToRemove": [
         {
             "Id": "84805b08-bc39-4fec-a79d-a4a6498dc7bz",
@@ -28,7 +28,7 @@ This code snippet executes the following tasks:
 }
 ```
 
-> :exclamation: It is important to note that the names of your form fields might differ. Ensure that the `$formObject` hashtable is appropriately adjusted to match your form fields.
+> :exclamation: It is important to note that the names of your form fields might differ. Ensure that the `$formObject` hashtable is appropriately adjusted to match your form fields. [See the Microsoft docs page](https://learn.microsoft.com/en-us/powershell/module/exchange/remove-mailboxpermission?view=exchange-ps)
 
 2. Constructs a powershell credential object from the supplied administrative username and password
 

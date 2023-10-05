@@ -2,8 +2,8 @@
 ###############################################################
 # Form mapping
 $formObject = @{
-    MailboxDistinguishedName = $form.Name
-    UserToRemove             = $form.UserToRemove
+    MailboxIdentity = $form.MailboxIdentity
+    UsersToRemove    = $form.UsersToRemove
 }
 
 [bool]$IsConnected = $false
@@ -16,11 +16,11 @@ try {
     $null = Connect-ExchangeOnline -Credential $credential -ShowBanner:$false -ShowProgress:$false -ErrorAction Stop
     $IsConnected = $true
 
-    foreach ($user in $formObject.UserToRemove){
+    foreach ($user in $formObject.UsersToRemove){
         try {
-            Write-Information "Executing ExchangeOnline action: [MailboxRevokeFullAccess] for: [$($user.id)] on mailbox: [$($formObject.MailboxDistinguishedName)]"
+            Write-Information "Executing ExchangeOnline action: [MailboxRevokeFullAccess] for: [$($user.id)] on mailbox: [$($formObject.MailboxIdentity)]"
             $splatParams = @{
-                Identity        = $formObject.MailboxDistinguishedName
+                Identity        = $formObject.MailboxIdentity
                 AccessRights    = 'FullAccess'
                 InheritanceType = 'All'
                 User            = $user.Id
@@ -32,7 +32,7 @@ try {
                 System            = 'ExchangeOnline'
                 TargetIdentifier  = $($user.Id)
                 TargetDisplayName = $($user.DisplayName)
-                Message           = "ExchangeOnline action: [MailboxRevokeFullAccess] for: [$($user.id)] on mailbox: [$($formObject.MailboxDistinguishedName)] executed successfully"
+                Message           = "ExchangeOnline action: [MailboxRevokeFullAccess] for: [$($user.id)] on mailbox: [$($formObject.MailboxIdentity)] executed successfully"
                 IsError           = $false
             }
             Write-Information -Tags 'Audit' -MessageData $auditLog
